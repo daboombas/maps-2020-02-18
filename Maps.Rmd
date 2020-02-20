@@ -9,12 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, include=FALSE}
 library(tidycensus)
 library(tidyverse)
 census_api_key("c3b5b4cbe70d7e9997d04708cc9f631e99135a3d")
 ```
-```{r}
+```{r, include=FALSE}
 racevars <- c(White = "B02001_002", 
               Black = "B02001_003", 
               Asian = "B02001_005",
@@ -27,7 +27,7 @@ bergen <- get_acs(geography = "tract",
                   geometry = TRUE,
                   summary_var = "B02001_001")
 ```
-```{r}
+```{r, echo=FALSE}
 bergen %>%
   mutate(Percent = 100 * (estimate / summary_est)) %>%
   ggplot(aes(fill = Percent, color = Percent)) +
